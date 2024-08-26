@@ -8,5 +8,4 @@ export {};
 
 function main() {
   Sever.start();
-  debugger;
 }
