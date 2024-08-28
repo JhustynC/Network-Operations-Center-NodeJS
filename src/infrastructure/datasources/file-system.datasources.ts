@@ -1,9 +1,9 @@
 import fs from "fs";
 
-import { LogDataSource } from "../../domain/datasources/log.datasource";
+import { LogDatasource } from "../../domain/datasources/log.datasource";
 import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
-export class FileSystemDatasource implements LogDataSource {
+export class FileSystemDatasource implements LogDatasource {
   private readonly logPath: string = "logs/";
 
   //Se puede crear un mapa para tener cada path y agregar uno de forma mas facil
@@ -23,10 +23,10 @@ export class FileSystemDatasource implements LogDataSource {
       fs.mkdirSync(this.logPath);
     }
 
-    //Aplicando el pricipio: Dont'd repeat your self
-    this.logsPaths.forEach(([path, level]) => {
+    // Aplicando el principio: Don't repeat yourself (DRY)
+    this.logsPaths.forEach((path, level) => {
       if (!fs.existsSync(path)) {
-        fs.mkdirSync(path, { recursive: true });
+        fs.writeFileSync(path, "", { flag: "w" });
       }
     });
   };
@@ -46,10 +46,26 @@ export class FileSystemDatasource implements LogDataSource {
     return;
   }
 
-  getLog(serverityLevel: LogSeverityLevel): Promise<LogEntity[]> {
-    throw new Error("Method not implemented.");
+  private getLogsFromFile(path: string): LogEntity[] {
+    const content = fs.readFileSync(path, "utf8");
+    const logs = content.split("\n").map((line) => {
+      const log = LogEntity.fromJSON(line);
+      if (!log) {
+        throw new Error(`Error parsing log: ${line}`);
+      }
+      return log;
+    });
+    return logs;
   }
-  getAllLogs(): Promise<LogEntity[]> {
-    throw new Error("Method not implemented.");
+
+  async getLog(serverityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    if (!this.logsPaths.has(serverityLevel)) {
+      throw new Error("Severity level not supported");
+    }
+    return this.getLogsFromFile(this.logsPaths.get(serverityLevel)!);
+  }
+
+  async getAllLogs(): Promise<LogEntity[]> {
+    return this.getLogsFromFile(this.logsPaths.get(LogSeverityLevel.low)!);
   }
 }

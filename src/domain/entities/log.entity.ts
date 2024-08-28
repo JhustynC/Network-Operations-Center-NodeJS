@@ -9,10 +9,15 @@ export class LogEntity {
   public message: string;
   public createAt: Date;
 
-  constructor(level: LogSeverityLevel, message: string) {
+  constructor(level: LogSeverityLevel, message: string, createAt = new Date()) {
     this.level = level;
     this.message = message;
-    this.createAt = new Date();
+    this.createAt = createAt;
   }
-}
 
+  static fromJSON = (jsonObject: string): LogEntity => {
+    const { message, level, createAt } = JSON.parse(jsonObject);
+    const log = new LogEntity(level, message, new Date(createAt));
+    return log;
+  };
+}
