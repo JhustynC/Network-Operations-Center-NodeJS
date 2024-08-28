@@ -1,9 +1,9 @@
 import fs from "fs";
 
-import { LogDatasource } from "../../domain/datasources/log.datasource";
+import { AbsLogDatasource } from "../../domain/datasources/log.datasource";
 import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
-export class FileSystemDatasource implements LogDatasource {
+export class FileSystemDatasource implements AbsLogDatasource {
   private readonly logPath: string = "logs/";
 
   //Se puede crear un mapa para tener cada path y agregar uno de forma mas facil

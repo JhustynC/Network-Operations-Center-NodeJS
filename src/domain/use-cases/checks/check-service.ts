@@ -1,5 +1,6 @@
 import { LogEntity, LogSeverityLevel } from "../../entities/log.entity";
-import { LogRepository } from "../../repository/log.repository";
+import { AbsLogRepository } from "../../repository/log.repository";
+
 interface ICheckServiceUseCase {
   execute(url: string): Promise<boolean>;
 }
@@ -9,7 +10,7 @@ type ErrorCallback = (erro: string) => void;
 
 export class CheckService implements ICheckServiceUseCase {
   constructor(
-    private readonly logRepository: LogRepository,
+    private readonly logRepository: AbsLogRepository,
     private readonly successCallback?: SuccessCallback,
     private readonly errorCallback?: ErrorCallback
   ) {}
