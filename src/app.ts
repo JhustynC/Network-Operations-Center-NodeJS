@@ -1,4 +1,3 @@
-import { envs } from "./config/plugins/envs.plugin";
 import { Sever } from "./presentation/server";
 // export {};
 
@@ -9,5 +8,4 @@ import { Sever } from "./presentation/server";
 
 function main() {
   Sever.start();
- console.log(envs);
 }

@@ -9,6 +9,8 @@ type SuccessCallback = () => void;
 type ErrorCallback = (erro: string) => void;
 
 export class CheckService implements ICheckServiceUseCase {
+  private origin: string = "check-service.ts";
+
   constructor(
     private readonly logRepository: AbsLogRepository,
     private readonly successCallback?: SuccessCallback,
@@ -20,17 +22,22 @@ export class CheckService implements ICheckServiceUseCase {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Error on check service; ${url}`);
 
-      const logEntity = new LogEntity(
-        LogSeverityLevel.low,
-        `Service ${url} working`
-      );
+      const logEntity = new LogEntity({
+        level: LogSeverityLevel.low,
+        message: `Service ${url} working`,
+        origin: this.origin,
+      });
 
       this.logRepository.saveLog(logEntity);
       //Forma de corta de hcaer un if
       this.successCallback?.();
     } catch (error) {
       const errorMessage = `${url} is not ok: ${error}`;
-      const logEntity = new LogEntity(LogSeverityLevel.high, errorMessage);
+      const logEntity = new LogEntity({
+        level: LogSeverityLevel.high,
+        message: errorMessage,
+        origin: this.origin,
+      });
       this.logRepository.saveLog(logEntity);
       this.errorCallback?.(errorMessage);
       return false;

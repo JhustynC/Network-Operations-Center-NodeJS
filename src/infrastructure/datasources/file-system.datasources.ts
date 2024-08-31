@@ -11,6 +11,7 @@ export class FileSystemDatasource implements AbsLogDatasource {
     [LogSeverityLevel.low, "logs/logs-all.log"],
     [LogSeverityLevel.medium, "logs/logs-medium.log"],
     [LogSeverityLevel.high, "logs/logs-high.log"],
+    [LogSeverityLevel.mailer, "logs/logs-mailer.log"],
   ]);
 
   constructor() {
