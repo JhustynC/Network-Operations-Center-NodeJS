@@ -1,9 +1,9 @@
-import nodemailer from "nodemailer";
-import { envs } from "../../config/plugins/envs.plugin";
 import fs from "fs";
+
+import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { AbsLogRepository } from "../../domain/repository/log.repository";
-import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
+
+import { envs } from "../../config/plugins/envs.plugin";
 
 export interface ISendMailOptions {
   to: string | string[];

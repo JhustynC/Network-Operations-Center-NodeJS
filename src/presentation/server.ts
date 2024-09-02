@@ -20,6 +20,7 @@ export class Sever {
   public static start() {
     // Mandar email
     const emailTo = "jhustyn7@gmail.com";
+    // console.log(emailTo);
     // const emailTo = "patriciacajas22@gmail.com";
     // new SendEmailLogs(emailService, fileSystemLogRepository).execute(emailTo);
 
