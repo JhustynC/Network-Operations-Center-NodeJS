@@ -1,3 +1,5 @@
+import { $Enums } from "@prisma/client";
+
 export enum LogSeverityLevel {
   low = "low",
   medium = "medium",
@@ -10,6 +12,14 @@ export interface ILogEntityOptions {
   message: string;
   createAt?: Date;
   origin: string;
+}
+
+export interface ILogPostgres {
+  id: number;
+  message: string;
+  origin: string;
+  level: $Enums.SeverityLevel;
+  createAt: Date;
 }
 
 export class LogEntity {
@@ -33,6 +43,17 @@ export class LogEntity {
       message: message,
       createAt: createAt,
       origin: origin,
+    });
+    return log;
+  };
+
+  static fromObject = (object: { [key: string]: any }): LogEntity => {
+    const { level, message, origin, createAt } = object;
+    const log = new LogEntity({
+      level: level as LogSeverityLevel,
+      message,
+      createAt,
+      origin,
     });
     return log;
   };

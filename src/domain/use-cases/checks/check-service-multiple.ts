@@ -8,14 +8,20 @@ interface ICheckServiceUseCase {
 type SuccessCallback = () => void;
 type ErrorCallback = (erro: string) => void;
 
-export class CheckServiceUseCase implements ICheckServiceUseCase {
+export class CheckServiceMultipleUseCase implements ICheckServiceUseCase {
   private origin: string = "check-service.ts";
 
   constructor(
-    private readonly logRepository: AbsLogRepository,
+    private readonly logRepository: AbsLogRepository[],
     private readonly successCallback?: SuccessCallback,
     private readonly errorCallback?: ErrorCallback
   ) {}
+
+  private saveWithAllRepositories(log: LogEntity) {
+    this.logRepository.forEach((repository) => {
+      repository.saveLog(log);
+    });
+  }
 
   async execute(url: string): Promise<boolean> {
     try {
@@ -28,9 +34,9 @@ export class CheckServiceUseCase implements ICheckServiceUseCase {
         origin: this.origin,
       });
 
-      this.logRepository.saveLog(logEntity);
-      //Forma de corta de hcaer un if
+      this.saveWithAllRepositories(logEntity);
       this.successCallback?.();
+      return true;
     } catch (error) {
       const errorMessage = `${url} is not ok: ${error}`;
       const logEntity = new LogEntity({
@@ -38,10 +44,10 @@ export class CheckServiceUseCase implements ICheckServiceUseCase {
         message: errorMessage,
         origin: this.origin,
       });
-      this.logRepository.saveLog(logEntity);
+      // this.logRepository.saveLog(logEntity);
+      this.saveWithAllRepositories(logEntity);
       this.errorCallback?.(errorMessage);
       return false;
     }
-    return true;
   }
 }
