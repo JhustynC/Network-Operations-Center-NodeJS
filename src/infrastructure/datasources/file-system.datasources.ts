@@ -49,13 +49,16 @@ export class FileSystemDatasource implements AbsLogDatasource {
 
   private getLogsFromFile(path: string): LogEntity[] {
     const content = fs.readFileSync(path, "utf8");
-    const logs = content.split("\n").map((line) => {
-      const log = LogEntity.fromJSON(line);
-      if (!log) {
-        throw new Error(`Error parsing log: ${line}`);
-      }
-      return log;
-    });
+    const logs = content
+      .split("\n")
+      .filter((line) => line && line.trim() !== "")
+      .map((line) => {
+        const log = LogEntity.fromJSON(line);
+        if (!log) {
+          throw new Error(`Error parsing log: ${line}`);
+        }
+        return log;
+      });
     return logs;
   }
 

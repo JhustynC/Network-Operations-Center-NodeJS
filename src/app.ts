@@ -16,11 +16,6 @@ async function main() {
     mongoUrl: envs.MONGO_URL,
     dbName: envs.MONGO_DB_NAME,
   });
-
-  const mongo = new LogRepositoryImpl(new MongoDbLogDatasource()); 
-  const logs = await mongo.getLog(LogSeverityLevel.low);
-  console.log(logs);
-
   //Crear una coleccion =  tabla en SQL
   //Documento = Regsitro de la tabla
   // const newLog = await LogModel.create({
@@ -38,5 +33,5 @@ async function main() {
   // const logs = await LogModel.find({ level: LogSeverityLevel.low});
   // console.log(logs);
 
-  // Sever.start();
+  Sever.start();
 }
