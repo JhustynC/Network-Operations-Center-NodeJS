@@ -12,10 +12,16 @@ import { PrismaClient } from "@prisma/client";
 })();
 
 async function main() {
-  await MongoDatabase.conecct({
-    mongoUrl: envs.MONGO_URL,
-    dbName: envs.MONGO_DB_NAME,
-  });
+  // try {
+  //   await MongoDatabase.conecct({
+  //     mongoUrl: envs.MONGO_URL,
+  //     dbName: envs.MONGO_DB_NAME,
+  //   });
+  // } catch (err) {
+  //   console.log(err);
+  // }
+
+  console.log(envs);
 
   // const prisma = new PrismaClient();
   // const newlog = await prisma.logModel.create({

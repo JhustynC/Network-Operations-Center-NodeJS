@@ -37,7 +37,7 @@ export class FileSystemDatasource implements AbsLogDatasource {
 
     //Save all logs
     fs.appendFileSync(this.logsPaths.get(LogSeverityLevel.low)!, logAsJSON);
-
+    console.log("Saved logs in File System");
     //Save only medium and high severity logs
     if (log.level !== LogSeverityLevel.low) {
       fs.appendFileSync(this.logsPaths.get(log.level)!, logAsJSON);

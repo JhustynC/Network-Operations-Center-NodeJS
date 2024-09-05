@@ -2,7 +2,12 @@ node_modules/
 dist/
 logs/
 mongo-data/
+mongo-data-test/
 postgres-data/
+postgres-data-test/
+coverage/
+
 
 *.log
 .env
+.env.test

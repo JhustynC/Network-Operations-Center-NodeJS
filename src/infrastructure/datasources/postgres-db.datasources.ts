@@ -22,7 +22,7 @@ export class PostgresDbLogDatasource implements AbsLogDatasource {
       },
     });
 
-    console.log(" Save Log in Postgres");
+    console.log("Save Log in Postgres");
   }
   async getLog(serverityLevel: LogSeverityLevel): Promise<LogEntity[]> {
     const level = logsLevels[serverityLevel as keyof typeof logsLevels];

@@ -9,7 +9,7 @@ export class CronService {
       cronTime: cronTime,
       onTick: onTick,
       start: true,
-      timeZone: "America/Los_Angeles",
+      timeZone: "America/Guayaquil",
     });
 
     return job;
