@@ -6,9 +6,9 @@ const testEnvs = {
   MAILER_SERVICE: "gmail",
   MONGO_DB_NAME: "NOC-TEST",
   MONGO_PASS: "123456789",
-  MONGO_URL: "mongodb://jhustyn:123456@localhost:27017/",
-  MONGO_USER: "jhusty-test",
-  PORT: 4000,
+  MONGO_URL: "mongodb://carvajal:123456789@localhost:27019/",
+  MONGO_USER: "carvajal",
+  MONGO_PORT: 27019,
   PROD: false,
 };
 
@@ -19,13 +19,13 @@ describe("envs.plugin.ts", () => {
 
   test("Shuld return error if not found env", async () => {
     jest.resetModules();
-    process.env.PORT = "ABC";
+    process.env.MONGO_PORT = "ABC";
     try {
       await import("./envs.plugin");
-      console.log(process.env.PORT);
+      console.log(process.env.MONGO_PORT);
       expect(true).toBe(false);
     } catch (error) {
-      expect(`${error}`).toContain(`"PORT" should be a valid integer`);
+      expect(`${error}`).toContain(`"MONGO_PORT" should be a valid integer`);
     }
   });
 });

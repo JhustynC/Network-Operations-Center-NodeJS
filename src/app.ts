@@ -1,10 +1,4 @@
-import { envs } from "./config/plugins/envs.plugin";
-import { LogModel, MongoDatabase } from "./data/mongo";
 import { Sever } from "./presentation/server";
-import { LogSeverityLevel } from "./domain/entities/log.entity";
-import { LogRepositoryImpl } from "./infrastructure/repositories/log.repository.imp";
-import { PrismaClient } from "@prisma/client";
-// export {};
 
 (async () => {
   main();
@@ -21,7 +15,7 @@ async function main() {
   //   console.log(err);
   // }
 
-  console.log(envs);
+  // console.log(envs);
 
   // const prisma = new PrismaClient();
   // const newlog = await prisma.logModel.create({

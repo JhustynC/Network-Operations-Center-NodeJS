@@ -17,4 +17,4 @@ delete process.env.POSTGRES_PASSWORD;
 
 config({ path: "./.env.test" });
 
-console.log("Config test envs");
+// console.log("Config test envs");
