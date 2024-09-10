@@ -31,6 +31,7 @@ export class CheckServiceUseCase implements ICheckServiceUseCase {
       this.logRepository.saveLog(logEntity);
       //Forma de corta de hcaer un if
       this.successCallback?.();
+      return true;
     } catch (error) {
       const errorMessage = `${url} is not ok: ${error}`;
       const logEntity = new LogEntity({
@@ -42,6 +43,5 @@ export class CheckServiceUseCase implements ICheckServiceUseCase {
       this.errorCallback?.(errorMessage);
       return false;
     }
-    return true;
   }
 }
