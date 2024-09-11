@@ -12,13 +12,13 @@ export class CheckServiceMultipleUseCase implements ICheckServiceUseCase {
   private origin: string = "check-service.ts";
 
   constructor(
-    private readonly logRepository: AbsLogRepository[],
+    private readonly logRepositories: AbsLogRepository[],
     private readonly successCallback?: SuccessCallback,
     private readonly errorCallback?: ErrorCallback
   ) {}
 
   private saveWithAllRepositories(log: LogEntity) {
-    this.logRepository.forEach((repository) => {
+    this.logRepositories.forEach((repository) => {
       repository.saveLog(log);
     });
   }
