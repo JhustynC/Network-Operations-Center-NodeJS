@@ -34,7 +34,9 @@ export class PostgresDbLogDatasource implements AbsLogDatasource {
 
     return logs.map((dbLog) => LogEntity.fromObject(dbLog));
   }
-  getAllLogs(): Promise<LogEntity[]> {
-    throw new Error("Method not implemented.");
+  async getAllLogs(): Promise<LogEntity[]> {
+    const logs = await prisma.logModel.findMany();
+    return logs.map((dbLog) => LogEntity.fromObject(dbLog));
+    // throw new Error("Method not implemented.");
   }
 }

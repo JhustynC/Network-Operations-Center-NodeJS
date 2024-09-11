@@ -7,7 +7,7 @@ export class MongoDbLogDatasource implements AbsLogDatasource {
 
   async saveLog(log: LogEntity): Promise<void> {
     const newLog = await LogModel.create(log);
-    console.log("Save Log in MongoDb");
+    console.log("Save Log in MongoDb: ", newLog.id);
     // console.log(newLog);
   }
   getLog(serverityLevel: LogSeverityLevel): Promise<LogEntity[]> {

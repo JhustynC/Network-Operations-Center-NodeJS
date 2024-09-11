@@ -35,6 +35,21 @@ export class LogEntity {
     this.origin = origin;
   }
 
+  static mapDbSeverityLevelToLogSeverityLevel = (
+    dbLevel: string
+  ): LogSeverityLevel => {
+    switch (dbLevel) {
+      case "LOW":
+        return LogSeverityLevel.low;
+      case "MEDIUM":
+        return LogSeverityLevel.medium;
+      case "HIGH":
+        return LogSeverityLevel.high;
+      default:
+        throw new Error(`Unhandled severity level: ${dbLevel}`);
+    }
+  };
+
   static fromJSON = (jsonObject: string): LogEntity => {
     // if (!jsonObject || jsonObject.trim() === "") jsonObject = "{}";
     const { message, level, createAt, origin } = JSON.parse(jsonObject);
@@ -49,8 +64,14 @@ export class LogEntity {
 
   static fromObject = (object: { [key: string]: any }): LogEntity => {
     const { level, message, origin, createAt } = object;
+
+    // Map the database level to your project enum
+    const logLevel = Object.values(LogSeverityLevel).includes(level)
+      ? (level as LogSeverityLevel) // Si pertenece, usa el valor directamente
+      : LogEntity.mapDbSeverityLevelToLogSeverityLevel(level); // Si no, usa el mapeo
+
     const log = new LogEntity({
-      level: level as LogSeverityLevel,
+      level: logLevel,
       message,
       createAt,
       origin,
