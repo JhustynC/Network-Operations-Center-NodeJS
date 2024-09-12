@@ -31,6 +31,7 @@ PROD=true
 
 ```
 npm run test
+npm run test:watch
 ```
 
 ### Modo Desarrollo

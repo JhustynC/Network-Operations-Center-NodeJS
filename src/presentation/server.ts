@@ -18,13 +18,13 @@ import { CheckServiceMultipleUseCase } from "../domain/use-cases/checks/check-se
 //   //new FirebaseDatasource()
 // );
 
-const logRepositories = [
-  new LogRepositoryImpl(new FileSystemDatasource()),
-  new LogRepositoryImpl(new MongoDbLogDatasource()),
-  new LogRepositoryImpl(new PostgresDbLogDatasource()),
-];
+// const logRepositories = [
+//   new LogRepositoryImpl(new FileSystemDatasource()),
+//   new LogRepositoryImpl(new MongoDbLogDatasource()),
+//   new LogRepositoryImpl(new PostgresDbLogDatasource()),
+// ];
 
-const emailService = new EmailService();
+// const emailService = new EmailService();
 
 export class Sever {
   public static async start() {
@@ -35,20 +35,20 @@ export class Sever {
     // const emailTo = "patriciacajas22@gmail.com";
     // new SendEmailLogs(emailService, fileSystemLogRepository).execute(emailTo);
     // emailService.sendEmailWithFileSysmtemLogs(email);
-    console.log("Server started...");
-    const url = "http://google.com";
-    const job = CronService.createJob("*/5 * * * * *", async () => {
-      const time = new Date().toLocaleString("es-MX");
-      const dateFromLocale = new Date(time);
+    // console.log("Server started...");
+    // const url = "http://google.com";
+    // const job = CronService.createJob("*/5 * * * * *", async () => {
+    //   const time = new Date().toLocaleString("es-MX");
+    //   const dateFromLocale = new Date(time);
 
-      console.log(time);
-      await new CheckServiceMultipleUseCase(
-        logRepositories,
-        () => console.log("Service is up"),
-        (error) => console.error(error)
-      ).execute(url);
-      // await new CheckService().execute("http://localhost:3000");
-    });
+    //   console.log(time);
+    //   await new CheckServiceMultipleUseCase(
+    //     logRepositories,
+    //     () => console.log("Service is up"),
+    //     (error) => console.error(error)
+    //   ).execute(url);
+    //   // await new CheckService().execute("http://localhost:3000");
+    // });
     // const logs = await logRepository.getLog(LogSeverityLevel.high);
     // console.log(logs);
   }
