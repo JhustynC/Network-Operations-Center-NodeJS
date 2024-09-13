@@ -1,6 +1,6 @@
 import { LogEntity, LogSeverityLevel } from "./log.entity";
 
-describe("", () => {
+describe("Log Entity", () => {
   const testLog = {
     level: LogSeverityLevel.low,
     message: "test-message",
@@ -24,10 +24,10 @@ describe("", () => {
     const logJSON = `{"level":"low","message":"Service http://google.com working","createAt":"2024-09-10T05:05:15.604Z","origin":"check-service.ts"}`;
     const logEntity = LogEntity.fromJSON(logJSON);
     expect(logEntity).toBeInstanceOf(LogEntity);
-    expect(logEntity.message).toBe("Service http://google.com working");
-    expect(logEntity.level).toBe(LogSeverityLevel.low);
-    expect(logEntity.origin).toBe("check-service.ts");
-    expect(logEntity.createAt).toBeInstanceOf(Date);
+    expect(logEntity!.message).toBe("Service http://google.com working");
+    expect(logEntity!.level).toBe(LogSeverityLevel.low);
+    expect(logEntity!.origin).toBe("check-service.ts");
+    expect(logEntity!.createAt).toBeInstanceOf(Date);
   });
 
   test("Shoulf create a LogEntity instance from Object", () => {

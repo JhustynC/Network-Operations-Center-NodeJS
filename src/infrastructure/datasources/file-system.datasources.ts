@@ -37,7 +37,7 @@ export class FileSystemDatasource implements AbsLogDatasource {
 
     //Save all logs
     fs.appendFileSync(this.logsPaths.get(LogSeverityLevel.low)!, logAsJSON);
-    console.log("Saved logs in File System");
+    // console.log("Saved logs in File System");
     //Save only medium and high severity logs
     if (log.level !== LogSeverityLevel.low) {
       fs.appendFileSync(this.logsPaths.get(log.level)!, logAsJSON);
@@ -54,9 +54,7 @@ export class FileSystemDatasource implements AbsLogDatasource {
       .filter((line) => line && line.trim() !== "")
       .map((line) => {
         const log = LogEntity.fromJSON(line);
-        if (!log) {
-          throw new Error(`Error parsing log: ${line}`);
-        }
+        if (!log) throw new Error(`Error parsing log: ${line}`);
         return log;
       });
     return logs;
@@ -66,7 +64,8 @@ export class FileSystemDatasource implements AbsLogDatasource {
     if (!this.logsPaths.has(serverityLevel)) {
       throw new Error("Severity level not supported");
     }
-    return this.getLogsFromFile(this.logsPaths.get(serverityLevel)!);
+    const logs = this.getLogsFromFile(this.logsPaths.get(serverityLevel)!);
+    return logs;
   }
 
   async getAllLogs(): Promise<LogEntity[]> {

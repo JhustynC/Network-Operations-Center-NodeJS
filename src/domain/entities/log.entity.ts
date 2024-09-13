@@ -50,16 +50,21 @@ export class LogEntity {
     }
   };
 
-  static fromJSON = (jsonObject: string): LogEntity => {
+  static fromJSON = (jsonObject: string): LogEntity | null => {
     // if (!jsonObject || jsonObject.trim() === "") jsonObject = "{}";
-    const { message, level, createAt, origin } = JSON.parse(jsonObject);
-    const log = new LogEntity({
-      level: level,
-      message: message,
-      createAt: new Date(createAt),
-      origin: origin,
-    });
-    return log;
+    try {
+      const { message, level, createAt, origin } = JSON.parse(jsonObject);
+      if (!message || !level || !createAt || !origin) return null;
+      const log = new LogEntity({
+        level: level,
+        message: message,
+        createAt: new Date(createAt),
+        origin: origin,
+      });
+      return log;
+    } catch {
+      return null;
+    }
   };
 
   static fromObject = (object: { [key: string]: any }): LogEntity => {
