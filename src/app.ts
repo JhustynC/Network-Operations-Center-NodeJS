@@ -1,4 +1,6 @@
-import { Sever } from "./presentation/server";
+import { envs } from "./config/plugins/envs.plugin";
+import { MongoDatabase } from "./data/mongo";
+import { Server } from "./presentation/server";
 
 (async () => {
   main();
@@ -6,14 +8,14 @@ import { Sever } from "./presentation/server";
 })();
 
 async function main() {
-  // try {
-  //   await MongoDatabase.conecct({
-  //     mongoUrl: envs.MONGO_URL,
-  //     dbName: envs.MONGO_DB_NAME,
-  //   });
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  try {
+    await MongoDatabase.conecct({
+      mongoUrl: envs.MONGO_URL,
+      dbName: envs.MONGO_DB_NAME,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 
   // console.log(envs);
 
@@ -54,5 +56,5 @@ async function main() {
   // const logs = await LogModel.find({ level: LogSeverityLevel.low});
   // console.log(logs);
 
-  Sever.start();
+  Server.start();
 }
