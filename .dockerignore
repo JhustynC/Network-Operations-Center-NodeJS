@@ -1,0 +1,14 @@
+node_modules
+dist
+coverage
+logs
+.env
+.env.test
+.env.production
+.git
+.gitignore
+docker-compose.yml
+docker-compose.test.yml
+README.md
+test
+

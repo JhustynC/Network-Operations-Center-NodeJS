@@ -38,9 +38,11 @@ export class Server {
     console.log("Server started...");
     const url = "http://google.com";
     const job = CronService.createJob("*/5 * * * * *", async () => {
-      const time = new Date().toLocaleString("es-MX");
-      const dateFromLocale = new Date(time);
-      console.log(dateFromLocale);
+      // const time = new Date().toLocaleString("es-MX");
+      // const dateFromLocale = new Date(time);
+      // console.log(dateFromLocale);
+      const date = new Date();
+      console.log(date);
       await new CheckServiceMultipleUseCase(
         logRepositories,
         () => console.log("Service is up"),

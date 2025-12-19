@@ -14,11 +14,11 @@ export interface ISendMailOptions {
 }
 
 // console.log(envs); //
-export class EmailService {
-  private pathsHtmlEmailTemplates = new Map<string, string>([
-    ["t1", "./src/presentation/email/email-templates/email-template1.html"],
-    ["t2", "./src/presentation/email/email-templates/email-template2.html"],
-  ]);
+  export class EmailService {
+    private pathsHtmlEmailTemplates = new Map<string, string>([
+      ["t1", "./src/presentation/email/email-templates/email-template1.html"],
+      ["t2", "./src/presentation/email/email-templates/email-template2.html"],
+    ]);
 
   private mailer = nodemailer.createTransport({
     service: envs.MAILER_SERVICE,
