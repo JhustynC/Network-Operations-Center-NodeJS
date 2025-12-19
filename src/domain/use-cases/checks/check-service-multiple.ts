@@ -11,7 +11,7 @@ type ErrorCallback = (erro: string) => void;
 export class CheckServiceMultipleUseCase implements ICheckServiceUseCase {
   private origin: string = "check-service.ts";
 
-  constructor(
+    constructor(
     private readonly logRepositories: AbsLogRepository[],
     private readonly successCallback?: SuccessCallback,
     private readonly errorCallback?: ErrorCallback
